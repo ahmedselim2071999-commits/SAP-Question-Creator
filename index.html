@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SAP LMS Bulk Question Automator</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mammoth@1.8.0/mammoth.browser.min.js"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><div class="logo">SAP</div><div><b>SAP LMS Bulk Question Automator</b><small>GitHub Pages • Browser-only</small></div></div>
+  <div><button id="demoBtn" class="btn ghost">Load Demo</button><button id="clearBtn" class="btn ghost">Clear</button></div>
+</header>
+<main>
+<section class="hero">
+  <span class="eyebrow">BULK QUESTION WORKFLOW</span>
+  <h1>Questions in. SAP LMS Excel out.</h1>
+  <p>Upload your Word/AIKEN questions and SAP template, review the generated rows, then create the bulk-upload workbook directly in your browser.</p>
+  <div class="flow"><span>Upload</span>→<span>Parse</span>→<span>Validate</span>→<span>Preview</span>→<span>Generate</span></div>
+</section>
+
+<section class="card">
+<div class="head"><div><span class="num">01</span><div><h2>Files</h2><p>Choose the source questions and SAP LMS Excel template.</p></div></div></div>
+<div class="uploads">
+<label class="drop"><input id="questionsFile" type="file" accept=".docx,.txt,.aiken"><strong>＋ Question file</strong><small>Word DOCX, AIKEN or TXT</small><em id="questionsName">No file selected</em></label>
+<label class="drop"><input id="templateFile" type="file" accept=".xlsx"><strong>＋ SAP template</strong><small>Excel XLSX</small><em id="templateName">No file selected</em></label>
+</div>
+</section>
+
+<section class="card">
+<div class="head"><div><span class="num">02</span><div><h2>Settings</h2><p>These fields control the SAP values and Question IDs.</p></div></div></div>
+<div class="grid">
+<label>Course code<input id="course" placeholder="26Q3_vid_c_SOWA2_JB"></label>
+<label>Assessment type<select id="assessment"><option>Pre Assessment</option><option selected>Knowledge Check</option><option>Post Assessment</option></select></label>
+<label>Locale ID<input id="locale" value="en_US"></label>
+<label>Domain ID<input id="domain" value="PUBLIC"></label>
+<label>Default question type<select id="defaultType">
+<option>MULTI_CHOICE_SINGLE_ANSWER</option><option>MULTI_CHOICE_MULTIPLE_ANSWER</option><option>TRUE_FALSE</option><option>ORDERING</option><option>FILL_IN_THE_BLANK</option>
+</select></label>
+<label>Starting number<input id="startNumber" type="number" min="1" value="1"></label>
+</div>
+<div class="idbox"><span>Question ID example</span><code id="idExample">26Q3_vid_c_SOWA2_JB_KC_001</code></div>
+</section>
+
+<section class="card">
+<div class="head"><div><span class="num">03</span><div><h2>Parse & Preview</h2><p>Check every question, type, choice count and correct answer before export.</p></div></div><button id="parseBtn" class="btn secondary">Parse questions</button></div>
+<div id="status" class="status">Upload a question file and click Parse questions.</div>
+<div id="summary" class="summary hidden"></div>
+<div class="tablewrap"><table><thead><tr><th>#</th><th>Question</th><th>Type</th><th>Choices</th><th>Correct</th><th>Generated ID</th><th>Status</th></tr></thead><tbody id="tbody"><tr><td colspan="7" class="empty">No questions parsed yet.</td></tr></tbody></table></div>
+</section>
+
+<section class="card">
+<div class="head"><div><span class="num">04</span><div><h2>Generate SAP workbook</h2><p>Each answer choice becomes a separate row with repeated question data.</p></div></div><button id="generateBtn" class="btn primary" disabled>Generate SAP Bulk Excel</button></div>
+<div class="chips"><span>Question ID</span><span>Locale ID</span><span>Domain ID</span><span>Variant Number</span><span>Question Type</span><span>Question Text</span><span>Choice Number</span><span>Choice Value</span><span>Is Correct</span></div>
+</section>
+
+<section class="card help"><h2>AIKEN format</h2><pre>Which formula represents Einstein's mass-energy equivalence?
+
+A. F = ma
+B. E = mc^2
+C. PV = nRT
+D. V = IR
+
+ANSWER: B</pre><p>For multiple correct answers use <code>ANSWER: A,C</code>. You can add <code>TYPE:</code> before a question when the question type differs from the default.</p></section>
+</main>
+<footer>SAP LMS Bulk Question Automator • Static web application</footer>
+<script src="app.js"></script>
+</body>
+</html>
